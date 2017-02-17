@@ -1,10 +1,21 @@
 {
-    "name": "zapay-client",
+    "name": "shulinqian/zapay-client",
+    "description": "thinkweb支付中心客户端",
+    "type": "thinkweb-extend",
     "authors": [
         {
-            "name": "qianqiangqiang",
+            "name": "shulinqian",
             "email": "330576744@qq.com"
         }
     ],
-    "require": {}
+    "license": "Apache-2.0",
+    "autoload": {
+
+    },
+    "require": {
+
+    },
+    "extra": {
+
+    }
 }
