@@ -1,0 +1,10 @@
+{
+    "name": "zapay-client",
+    "authors": [
+        {
+            "name": "qianqiangqiang",
+            "email": "330576744@qq.com"
+        }
+    ],
+    "require": {}
+}
