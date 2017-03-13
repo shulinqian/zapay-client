@@ -1,9 +1,4 @@
 <?php
-/**
- * User: qianjin
- * Date: 2017/2/18 0018
- * Time: 14:02
- */
 namespace thinkweb\zapay;
 
 class Client{
@@ -45,20 +40,49 @@ class Client{
         return $this->auth($sign, $post);
     }
 
-    protected function auth($sign, $data)
+    public function auth($sign, $data)
     {
-        unset($data['sign']);
+        if(isset($data['sign'])){
+            unset($data['sign']);
+        }
+        $signAuth = $this->getSign($data);
+        return $sign === $signAuth;
+    }
+
+    public function genData($api,  $args = []){
+        $args['appid'] = $this->getConfig('appid');
+        $args['api'] = $api;
+        $args['timestamp'] = time();
+        $args['sign'] = $this->getSign($args);
+        return $args;
+    }
+
+    protected function getSign($data){
         if(is_array($data)){
             ksort($data);
             $data = json_encode($data, JSON_NUMERIC_CHECK);
         }
         $appid = $this->getConfig('appid');
         $key = $this->getConfig('key');
-        return $sign === md5($data . $appid . $key);
+        return md5($data . $appid . $key);
     }
 
-    public function createLink($post)
-    {
+    public function createButton($post, $attr ='', $title = 'Á¢¼´Ö§¸¶'){
+        $attr = $attr ? $attr : 'class="btn btn-primary"';
+        $gateway = $this->getConfig('gateway');
+        $post['appid'] = $this->getConfig('appid');
+
+        $post['sign'] = $this->getSign($post);
+        $element = '';
+        foreach ($post as $key => $item) {
+            $element .= "<input type=\"hidden\" name=\"{$key}\" value=\"{$item}\" />";
+        }
+        return <<<EOF
+<form action="{$gateway}" method="post" target="_blank">
+    {$element}
+    <input type="submit" {$attr} value="{$title}" />
+</form>
+EOF;
 
     }
 
