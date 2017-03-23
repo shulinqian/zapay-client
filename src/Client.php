@@ -67,7 +67,7 @@ class Client{
         return md5($data . $appid . $key);
     }
 
-    public function createButton($post, $attr ='', $title = 'Á¢¼´Ö§¸¶'){
+    public function createButton($post, $attr ='', $title = 'ç«‹å³æ”¯ä»˜'){
         $attr = $attr ? $attr : 'class="btn btn-primary"';
         $gateway = $this->getConfig('gateway');
         $post['appid'] = $this->getConfig('appid');
